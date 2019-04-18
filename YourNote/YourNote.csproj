@@ -109,7 +109,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="dollar.ico" />
+    <Content Include="dollar.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
