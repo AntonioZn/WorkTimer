@@ -50,8 +50,10 @@ namespace YourNote
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Exit", new EventHandler(Exit));
             ni.ContextMenu = contextMenu;
+
         }
 
+        private readonly ScreenshotTaker screenshotTaker;
         private DateTime startTime;
         private TimeSpan currentTime;
         private TimeSpan totalTime;
@@ -60,8 +62,6 @@ namespace YourNote
         private StringBuilder textBoxNotes = new StringBuilder();
         //  save the notes and logs
         private int counter = 0;
-        private int screenshotNumber = 1;
-        // helps for easily naming the screenshots
         private Timer timer;
         // for making screenshot in random period
         private Random random;
@@ -69,59 +69,7 @@ namespace YourNote
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (counter == 0)
-            {
 
-                random = new Random(Environment.TickCount);
-                timer = new Timer(TimerCallback, null, random.Next(3000,7000), Timeout.Infinite);
-
-                startTime = DateTime.Now;
-
-                if (this.TextBox.Text != "")
-                {
-                    textBoxNotes.Append($"{startTime.ToString()} - {TextBox.Text} {Environment.NewLine}");
-                    TextBox.Clear();
-                }
-
-                StartButton.Content = "Stop";
-                StartButton.Background = Brushes.ForestGreen;
-                counter++;
-                textBoxNotes.Append($"START {startTime} {Environment.NewLine}");
-            }
-
-            else
-            {
-                timer.Dispose();
-
-                if (this.TextBox.Text != "")
-                {
-                    textBoxNotes.Append($"      {startTime.ToString()} - {TextBox.Text} {Environment.NewLine}");
-                    TextBox.Clear();
-                }
-
-                currentTime = DateTime.Now - startTime;
-                textBoxNotes.Append($"STOP  {DateTime.Now.ToString()} {Environment.NewLine}");
-                totalTime += currentTime;
-                counter--;
-                StartButton.Content = $"          Start {Environment.NewLine} {totalTime} ";
-                StartButton.Background = Brushes.Red;
-            }
-        }
-
-
-
-        private void TimerCallback(object state)
-        {
-            try
-            {
-                SaveScreenshot();
-                screenshotNumber++;
-            }
-            finally
-            {
-                timer.Change(random.Next(3000,7000), Timeout.Infinite);
-            }
         }
 
         private void EndSessionButton_Click(object sender, RoutedEventArgs e)
@@ -165,10 +113,10 @@ namespace YourNote
                 textBoxNotes.Clear();
                 totalTime = TimeSpan.Zero;
                 counter = 0;
-
+                screenshotTaker.ResetScreenshotNumber();
             }
 
-            screenshotNumber = 1;
+            
             StartButton.Content = "Start";
             StartButton.ClearValue(Button.BackgroundProperty);
         }
@@ -187,26 +135,7 @@ namespace YourNote
             MessageBox.Show($"{textBoxNotes.ToString()}");
         }
 
-        private void SaveScreenshot()
-        {
-            string filename = $"Screenshot{screenshotNumber.ToString()}-" + DateTime.Now.ToString("ddMMyyyy") + ".png";
-
-            int screenLeft = (int)SystemParameters.VirtualScreenLeft;
-
-            int screenTop = (int)SystemParameters.VirtualScreenTop;
-
-            int screenWidth = (int)SystemParameters.VirtualScreenWidth;
-
-            int screenHeight = (int)SystemParameters.VirtualScreenHeight;
-
-            Bitmap bitmap_Screen = new Bitmap(screenWidth, screenHeight);
-
-            Graphics g = Graphics.FromImage(bitmap_Screen);
-
-            g.CopyFromScreen(screenLeft, screenTop, 0, 0, bitmap_Screen.Size);
-
-            bitmap_Screen.Save(@"C:\Users\anton\OneDrive\Desktop\" + filename);
-        }
+       
 
         protected override void OnStateChanged(EventArgs e)
         {
