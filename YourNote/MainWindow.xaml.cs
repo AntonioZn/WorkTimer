@@ -63,6 +63,7 @@ namespace YourNote
         private int screenshotNumber = 1;
         // helps for easily naming the screenshots
         private Timer timer;
+        // for making screenshot in random period
         private Random random;
 
 
@@ -125,7 +126,6 @@ namespace YourNote
 
         private void EndSessionButton_Click(object sender, RoutedEventArgs e)
         {
-
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "Text file(*.txt)|*.txt";
 
@@ -145,7 +145,6 @@ namespace YourNote
                     MessageBox.Show($"{totalTime} {Environment.NewLine} {textBoxNotes.ToString()}");
                     textBoxNotes.Clear();
                 }
-
             }
 
             else
