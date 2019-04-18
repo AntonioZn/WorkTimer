@@ -5,18 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YourNote"
         mc:Ignorable="d"
-                Title="Login" Height="400" Width="400" FontSize="25" Background="DarkTurquoise">
+                Title="Login" Height="450" Width="430" FontSize="25" Background="DarkTurquoise">
     <Border Background="Black" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator/>
-            <Label Content="Username" Foreground="White"/>
-            <TextBox Name="txtUserName" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
-            <Label Content="Password" Foreground="White"/>
-            <PasswordBox Name="txtPassword" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
-            <Button Name="btnSubmit" Content="Submit" Margin="60 20 " Click="btnSubmit_Click" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
-
-
+            <Label Content="Username" Foreground="White" FontSize="15" />
+            <TextBox x:Name="txtUserName" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
+            <Label Content="Email" Foreground="White" FontSize="15" />
+            <TextBox x:Name="txtEmail" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
+            <Label Content="Password" Foreground="White" FontSize="15"/>
+            <PasswordBox x:Name="txtPassword" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
+            <Button x:Name="ButtonSubmit" Content="Submit" Margin="60 20 " Click="ButtonSubmit_Click" Background="DarkTurquoise" Foreground="White" FontSize="18"/>
+            <Label Content="Password must be long at least 6 symbols and less than 13 symbols" Foreground="White" FontSize="10"/>
+            <Label Content="Username must be long at least 6 symbols and maximum 16 symbols" Foreground="White" FontSize="10" />
 
         </StackPanel>
     </Border>

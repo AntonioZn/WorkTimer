@@ -11,8 +11,6 @@
             
         Background="Bisque"         
         Name="YourWorkHelper">
-
-
     <Grid>
         <Border Padding="10" >
             <StackPanel Margin="0,12,0,44">

@@ -24,11 +24,21 @@ namespace YourNote
             InitializeComponent();
         }
 
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        
+        private void ButtonSubmit_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();           
+            MessageBox.Show(txtPassword.Password);
+
+            if (txtPassword.Password.Length > 6 && txtPassword.Password.Length < 13 && txtUserName.Text != null && txtUserName.Text.Length > 6)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show($"Invalid email, username or password");
+            }
         }
     }
 }
