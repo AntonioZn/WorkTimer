@@ -49,6 +49,8 @@ namespace YourNote
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Exit", new EventHandler(Exit));
             ni.ContextMenu = contextMenu;
+
+            ScreenshotMaker.CreateNewFolder();
         }
 
         private bool isStarted;

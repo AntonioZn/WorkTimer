@@ -15,7 +15,7 @@ namespace YourNote
         private TimeSpan stopTime;
         private TimeSpan sessionDuration;
         private StringBuilder logfile = new StringBuilder();
-        private SaveFileDialog dlg = new SaveFileDialog();
+        private SaveFileDialog dlg = new SaveFileDialog();       
 
         public DateTime StartTime()
         {
@@ -73,12 +73,12 @@ namespace YourNote
 
         public bool? ShowDialog()
         {
+            dlg.Filter = "Text file(*.txt)|*.txt";
             return dlg.ShowDialog();
         }
                   
         public void SaveFile()
-        {
-            dlg.Filter = "Text file(*.txt)|*.txt";
+        {          
             File.WriteAllText(dlg.FileName, GetLogfileInfo());
         }
     }

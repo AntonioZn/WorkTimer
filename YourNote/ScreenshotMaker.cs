@@ -14,10 +14,22 @@ namespace YourNote
         private int screenshotNumber = 1;
         private Timer timer;
         private Random random = new Random();
+        private string path;
+        private System.IO.DirectoryInfo desktop;
+
+        public void CreateNewFolder()
+        {
+
+            path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                                                 DateTime.Now.ToString("ddMMyyyy"));
+
+            desktop = System.IO.Directory.CreateDirectory(path);
+
+        }
 
         public void SaveScreenshot()
         {
-            string filename = $"Screenshot{screenshotNumber.ToString()}-" + DateTime.Now.ToString("ddMMyyyy") + ".png";
+            string filename = $"Screenshot-{screenshotNumber.ToString()}-" + DateTime.Now.ToString("ddMMyyyy") + ".png";
 
             int screenLeft = (int)SystemParameters.VirtualScreenLeft;
 
@@ -33,12 +45,10 @@ namespace YourNote
 
             g.CopyFromScreen(screenLeft, screenTop, 0, 0, bitmap_Screen.Size);
 
-            // string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-
-            bitmap_Screen.Save(@"C:\Users\anton\OneDrive\Desktop\" + filename);
+            bitmap_Screen.Save(System.IO.Path.Combine(path, filename));
 
             screenshotNumber++;
-        }
+        }   
 
         public void ResetScreenshotNumberToOne()
         {
