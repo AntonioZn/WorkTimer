@@ -25,12 +25,12 @@
                 <!-- Buttons -->
 
                 <Button x:Name="StartButton" Click="StartButton_Click" Grid.Column ="0" Content = "Start" Margin="0,0,10,-62" Height="54"  />
-                <TextBlock Text="Additional info" FontWeight="Bold"  Margin="10,65 0 0" Height="20" RenderTransformOrigin="0.514,-0.664"/>
+                <TextBlock x:Name="Additionalinfo" Text="Additional info" FontWeight="Bold"  Margin="10,65 0 0" Height="20" RenderTransformOrigin="0.514,-0.664"/>
                 <TextBox x:Name="TextBox" Margin="5,10,0,0 " Height="25" RenderTransformOrigin="0.498,-0.755" />
                 <Button x:Name="ClearContentButton" Margin="0,10,200,40" Click="ClearContentButton_Click" Content="Add info and clear the white field"/>
                 <Button x:Name="ShowPreviousContentsButton" Click="ShowPreviousContentsButton_Click" Content="Show previous contents" Margin="0,-20,235,50"/>
                 <Button x:Name="EndSessionButton" Click="EndSessionButton_Click"  Grid.Column ="2" Content="END SESSION AND SAVE CONTENT" Margin="290,-40,20,-100" Height="60" />
-                <ToggleButton x:Name="DarkModeOnOff" Click="DarkModeOnOff_Click" Margin="0,40" IsChecked="False" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignSwitchToggleButton}" RenderTransformOrigin="0.535,3.327"/>
+                <ToggleButton x:Name="DarkModeOnOff" Click="DarkModeOnOff_Click" Margin="10,40" IsChecked="False" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignSwitchToggleButton}" RenderTransformOrigin="0.535,3.327"/>
 
             </StackPanel>
         </Border>

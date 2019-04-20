@@ -161,7 +161,21 @@ namespace YourNote
 
         private void DarkModeOnOff_Click(object sender, RoutedEventArgs e)
         {
-            // to do 
+            if (DarkModeOnOff.IsChecked == true)
+            {
+                YourWorkHelper.Background = Brushes.Black;
+                Additionalinfo.Foreground = Brushes.White;
+                TextBox.Foreground = Brushes.White;
+                TextBox.BorderBrush = Brushes.White;
+            }
+
+            else
+            {
+                YourWorkHelper.ClearValue(BackgroundProperty);
+                Additionalinfo.ClearValue(TextBlock.ForegroundProperty);
+                TextBox.ClearValue(ForegroundProperty);
+                TextBox.ClearValue(BorderBrushProperty);
+            }
         }
     }
 }
