@@ -49,7 +49,7 @@ namespace YourNote
 
         public string GetLogfileInfo()
         {
-            string info = logfile.ToString();
+            string info = logfile.ToString() + Environment.NewLine + sessionDuration.ToString();
             return info;
         }
 

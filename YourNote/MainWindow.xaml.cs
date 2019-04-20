@@ -157,6 +157,11 @@ namespace YourNote
                 TimeManager.AppendTextToLogFile($"{DateTime.Now} - {TextBox.Text}");
                 TextBox.Clear();
             }
-        }       
+        }
+
+        private void DarkModeOnOff_Click(object sender, RoutedEventArgs e)
+        {
+            // to do 
+        }
     }
 }
