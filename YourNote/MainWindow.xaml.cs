@@ -22,7 +22,7 @@ using MessageBox = System.Windows.MessageBox;
 using Button = System.Windows.Controls.Button;
 using System.ComponentModel;
 using ContextMenu = System.Windows.Forms.ContextMenu;
-
+using System.Runtime.InteropServices;
 
 namespace YourNote
 {
@@ -48,6 +48,7 @@ namespace YourNote
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Exit", new EventHandler(Exit));
             ni.ContextMenu = contextMenu;
+            
             DarkModeOnOff.IsChecked = Properties.Settings.Default.Antonio;
             darkModeOn();
             ScreenshotMaker.CreateNewFolder();                     
@@ -57,13 +58,12 @@ namespace YourNote
         private readonly ScreenshotMaker ScreenshotMaker = new ScreenshotMaker();
         private readonly TimeManager TimeManager = new TimeManager();
         private readonly ForegroundWindowSaver foregroundWindowSaver = new ForegroundWindowSaver();
-        private StringBuilder foregroundWindowApps = new StringBuilder();
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {          
             if (!isStarted)
             {
-                foregroundWindowSaver.CatchWindow(sender,e);
+                foregroundWindowSaver.GetActiveWindowTitle();
                 ScreenshotMaker.Start();
                 TimeManager.StartTime();
                 ClearInfo();
@@ -75,7 +75,6 @@ namespace YourNote
 
             else
             {
-                foregroundWindowSaver.StopTimer();
                 ScreenshotMaker.Stop();
                 TimeManager.StopTime();
                 ClearInfo();
@@ -203,6 +202,6 @@ namespace YourNote
                  TextBox.ClearValue(ForegroundProperty);
                  TextBox.ClearValue(BorderBrushProperty);
              }
-         }
+         }       
     }
 }
