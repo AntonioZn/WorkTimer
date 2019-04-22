@@ -18,11 +18,11 @@ using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
 using Brushes = System.Windows.Media.Brushes;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;
 using Button = System.Windows.Controls.Button;
 using System.ComponentModel;
 using ContextMenu = System.Windows.Forms.ContextMenu;
+
 
 namespace YourNote
 {
@@ -30,7 +30,7 @@ namespace YourNote
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
         public MainWindow()
         {
             InitializeComponent();
@@ -43,24 +43,27 @@ namespace YourNote
                 {
                     this.Show();
                     this.WindowState = WindowState.Normal;
-
                 };
 
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Exit", new EventHandler(Exit));
             ni.ContextMenu = contextMenu;
-
-            ScreenshotMaker.CreateNewFolder();
+            DarkModeOnOff.IsChecked = Properties.Settings.Default.Antonio;
+            darkModeOn();
+            ScreenshotMaker.CreateNewFolder();                     
         }
 
         private bool isStarted;
         private readonly ScreenshotMaker ScreenshotMaker = new ScreenshotMaker();
         private readonly TimeManager TimeManager = new TimeManager();
+        private readonly ForegroundWindowSaver foregroundWindowSaver = new ForegroundWindowSaver();
+        private StringBuilder foregroundWindowApps = new StringBuilder();
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {          
             if (!isStarted)
             {
+                foregroundWindowSaver.CatchWindow(sender,e);
                 ScreenshotMaker.Start();
                 TimeManager.StartTime();
                 ClearInfo();
@@ -72,6 +75,7 @@ namespace YourNote
 
             else
             {
+                foregroundWindowSaver.StopTimer();
                 ScreenshotMaker.Stop();
                 TimeManager.StopTime();
                 ClearInfo();
@@ -167,6 +171,8 @@ namespace YourNote
                 Additionalinfo.Foreground = Brushes.White;
                 TextBox.Foreground = Brushes.White;
                 TextBox.BorderBrush = Brushes.White;
+                Properties.Settings.Default.Antonio = this.DarkModeOnOff.IsChecked.GetValueOrDefault();
+                Properties.Settings.Default.Save();
             }
 
             else
@@ -175,7 +181,28 @@ namespace YourNote
                 Additionalinfo.ClearValue(TextBlock.ForegroundProperty);
                 TextBox.ClearValue(ForegroundProperty);
                 TextBox.ClearValue(BorderBrushProperty);
+                Properties.Settings.Default.Antonio = this.DarkModeOnOff.IsChecked.GetValueOrDefault();
+                Properties.Settings.Default.Save();
             }
-        }
+        } 
+        
+         private void darkModeOn()
+         {
+             if (Properties.Settings.Default.Antonio)
+             {
+                 YourWorkHelper.Background = Brushes.Black;
+                 Additionalinfo.Foreground = Brushes.White;
+                 TextBox.Foreground = Brushes.White;
+                 TextBox.BorderBrush = Brushes.White;
+             }
+        
+             else
+             {
+                 YourWorkHelper.ClearValue(BackgroundProperty);
+                 Additionalinfo.ClearValue(TextBlock.ForegroundProperty);
+                 TextBox.ClearValue(ForegroundProperty);
+                 TextBox.ClearValue(BorderBrushProperty);
+             }
+         }
     }
 }

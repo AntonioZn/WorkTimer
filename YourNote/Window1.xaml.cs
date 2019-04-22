@@ -26,7 +26,7 @@ namespace YourNote
        
         private void ButtonSubmit_Click(object sender, RoutedEventArgs e)
         {            
-            if (txtPassword.Password.Length > 6 && txtPassword.Password.Length < 13 && txtUserName.Text != null && txtUserName.Text.Length > 6)
+            if (txtPassword.Password.Length == 2  && txtUserName.Text != null)
             {
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
