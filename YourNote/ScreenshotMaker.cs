@@ -14,18 +14,7 @@ namespace YourNote
         private int screenshotNumber = 1;
         private Timer timer;
         private Random random = new Random();
-        private string path;
-        private System.IO.DirectoryInfo desktop;
-
-        public void CreateNewFolder()
-        {
-
-            path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                                                 DateTime.Now.ToString("ddMMyyyy"));
-
-            desktop = System.IO.Directory.CreateDirectory(path);
-
-        }
+        private readonly InformationSaver informationSaver = new InformationSaver();
 
         public void SaveScreenshot()
         {
@@ -45,7 +34,7 @@ namespace YourNote
 
             g.CopyFromScreen(screenLeft, screenTop, 0, 0, bitmap_Screen.Size);
 
-            bitmap_Screen.Save(System.IO.Path.Combine(path, filename));
+            bitmap_Screen.Save(System.IO.Path.Combine(informationSaver.Path, filename));
 
             screenshotNumber++;
         }   

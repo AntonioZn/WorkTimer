@@ -15,7 +15,8 @@ namespace YourNote
         private TimeSpan stopTime;
         private TimeSpan sessionDuration;
         private StringBuilder logfile = new StringBuilder();
-        private SaveFileDialog dlg = new SaveFileDialog();       
+        private readonly InformationSaver informationSaver = new InformationSaver();
+        private string fileName = "TimeManager.txt";
 
         public DateTime StartTime()
         {
@@ -59,6 +60,7 @@ namespace YourNote
             TimeSpan fromStartToEnd = new TimeSpan();
             fromStartToEnd = DateTime.Now - startTime;
             logfile.AppendLine($"TOTAL: {fromStartToEnd}");
+            SaveFile();
         }
 
         public void AppendTextToLogFile(string text)
@@ -69,17 +71,11 @@ namespace YourNote
         public TimeSpan ShowSessionTime()
         {
             return sessionDuration;
-        }
-
-        public bool? ShowDialog()
-        {
-            dlg.Filter = "Text file(*.txt)|*.txt";
-            return dlg.ShowDialog();
-        }
+        }       
                   
         public void SaveFile()
-        {          
-            File.WriteAllText(dlg.FileName, GetLogfileInfo());
+        {
+            File.WriteAllText(Path.Combine(informationSaver.Path, fileName), logfile.ToString());
         }
     }
 }

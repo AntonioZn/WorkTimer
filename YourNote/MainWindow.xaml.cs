@@ -48,16 +48,17 @@ namespace YourNote
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Exit", new EventHandler(Exit));
             ni.ContextMenu = contextMenu;
-            
+            informationSaver.DesktopFolder();
             DarkModeOnOff.IsChecked = Properties.Settings.Default.Antonio;
             darkModeOn();
-            ScreenshotMaker.CreateNewFolder();                     
+                    
         }
 
         private bool isStarted;
         private readonly ScreenshotMaker ScreenshotMaker = new ScreenshotMaker();
         private readonly TimeManager TimeManager = new TimeManager();
         private readonly ForegroundWindowSaver foregroundWindowSaver = new ForegroundWindowSaver();
+        private readonly InformationSaver informationSaver = new InformationSaver();
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {          
@@ -87,28 +88,13 @@ namespace YourNote
        
         private void EndSessionButton_Click(object sender, RoutedEventArgs e)
         {          
-            if (TimeManager.GetDuration() == TimeSpan.Zero)
-            {
-                if (TimeManager.ShowDialog() == true)
-                {
-                    if (isStarted)
-                    {
-                        TimeManager.GetDurationFromStartTimeToNow();
-                    }
-                    TimeManager.SaveFile();
-                    isStarted = false;
-                }
-
-                else
-                {
-                    MessageBox.Show($"{Environment.NewLine} {TimeManager.GetLogfileInfo()}");
-                }
+            if (TimeManager.GetDuration() == TimeSpan.Zero && isStarted)
+            {                                    
+                 TimeManager.GetDurationFromStartTimeToNow();                  
             }
 
             else
-            {
-                if (TimeManager.ShowDialog() == true)
-                {
+            {                
                     if (isStarted == true)
                     {
                         TimeManager.AppendTextToLogFile($"STOP  {DateTime.Now}");
@@ -118,11 +104,12 @@ namespace YourNote
                     TimeManager.AppendTextToLogFile($"TOTAL WORKED TIME: {TimeManager.GetDuration()}");
                     TimeManager.SaveFile();
                     TextBox.Clear();
-                }
+                
 
                 isStarted = false;
             }
 
+            MessageBox.Show("SESSION SAVED SUCCESSFULLY");
             TimeManager.EndSession();
             ScreenshotMaker.ResetScreenshotNumberToOne();
             StartButton.Content = "Start";
